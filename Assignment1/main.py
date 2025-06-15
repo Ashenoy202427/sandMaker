@@ -88,6 +88,11 @@ class SandwichMachine:
         """Deduct the required ingredients from the resources.
            Hint: no output"""
 
+        for key in order_ingredients:
+            self.machine_resources[key] -= order_ingredients[key]
+        print(f"{sandwich_size} sandwich is ready. Bon appetit!")
+
+
 ### Make an instance of SandwichMachine class and write the rest of the codes ###
 """instance of sandwhichMachine"""
 machine = SandwichMachine(resources)
@@ -97,10 +102,19 @@ while ordrState:
     button = input("What would you like?   (small/ medium/ large/ off/ report):")
 
     """if process_coins and or check_resources are not sufficient break from loop"""
-    if not machine.check_resources(recipes[button]["ingredients"]):
+    if not machine.check_resources(recipes[button]["ingredients"]) or button == "off":
         ordrState = False
     coins = machine.process_coins()
-    if not machine.transaction_result(coins, recipes[button]["cost"]):
+    if not machine.transaction_result(coins, recipes[button]["cost"] or button == "off"):
         ordrState = False
+    if button == "report":
+        print(machine.machine_resources)
+        continue
+
+    """reference the current order and acquire the sandwhich_size"""
+    sandwich_size =  button
+    order_ingredients = recipes[button]["ingredients"]
+
+    machine.make_sandwich(sandwich_size, order_ingredients)
 
 
