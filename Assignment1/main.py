@@ -100,16 +100,19 @@ machine = SandwichMachine(resources)
 ordrState = True
 while ordrState:
     button = input("What would you like?   (small/ medium/ large/ off/ report):")
+    if button == "report":
+        print("Current Resources:")
+        for key, value in machine.machine_resources.items():
+            print(f"{key.capitalize()}: {value}")
 
+        continue
     """if process_coins and or check_resources are not sufficient break from loop"""
     if not machine.check_resources(recipes[button]["ingredients"]) or button == "off":
         ordrState = False
     coins = machine.process_coins()
     if not machine.transaction_result(coins, recipes[button]["cost"] or button == "off"):
         ordrState = False
-    if button == "report":
-        print(machine.machine_resources)
-        continue
+
 
     """reference the current order and acquire the sandwhich_size"""
     sandwich_size =  button
