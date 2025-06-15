@@ -59,17 +59,20 @@ class SandwichMachine:
         """Returns the total calculated from coins inserted.
            Hint: include input() function here, e.g. input("how many quarters?: ")"""
 
-        """ initialize currency values"""
-        hunnid = 0.1
-        fiddie = 0.5
-        quarter = 0.25
-        nickels = 0.05
 
+        print ("Please enter coins")
         """ then prompt for payment input """
-        hunnids=input("# of dollars?: ")
-        fiddies = input("# of half-dollars?: ")
-        quarters = input("# of quarters?: ")
-        nickels = input("# of nickels ")
+        hunnids= float(input("# of dollars?: ")) * 1.00
+        fiddies = float(input("# of half-dollars?: ")) * 0.5
+        quarters = float(input("# of quarters?: ")) *  0.25
+        nickels = float(input("# of nickels ")) * 0.05
+
+        total = hunnids + fiddies + quarters + nickels
+        print (total)
+        return total
+
+
+
 
 
 
@@ -89,9 +92,9 @@ ordrState = True
 while ordrState:
     button = input("What would you like?   (small/ medium/ large/ off/ report):")
 
-    machine.check_resources(recipes[button]["ingredients"])
-
-
     """if process_coins and or check_resources are not sufficient break from loop"""
     if not machine.check_resources(recipes[button]["ingredients"]):
         ordrState = False
+    machine.process_coins()
+
+
